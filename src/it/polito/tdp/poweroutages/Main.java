@@ -1,35 +1,20 @@
 package it.polito.tdp.poweroutages;
-	
+
 import it.polito.tdp.poweroutages.model.Model;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.fxml.FXMLLoader;
+import it.polito.tdp.poweroutages.model.Output;
 
-
-public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-		try {	
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("PowerOutages.fxml"));
-			BorderPane root = (BorderPane) loader.load();
-			PowerOutagesController controller = loader.getController();
-
-			Model model = new Model();
-			controller.setModel(model);
-
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+public class Main {
 	public static void main(String[] args) {
-		launch(args);
-	}
+       
+		Model model = new Model();
+		model.creaGrafo();
+		System.out.println("Caratteristiche del grafo:\n#VERTICI = "+model.getNVertici()+"\n#ARCHI = "+model.getNArchi());
+		
+		int K = 3; //mesi di simulazione
+		//NON SO COME FARE IL CALCOLO DEI MESI
+		model.simula(K);
+		System.out.println("Numero di catastrofi = "+model.getNCatasftrofi()+"\n\nBonus:\n");
+		for(Output o: model.getOutput())
+			System.out.println(o+"\n");
+    }
 }

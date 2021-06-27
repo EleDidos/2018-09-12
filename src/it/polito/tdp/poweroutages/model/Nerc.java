@@ -1,13 +1,42 @@
 package it.polito.tdp.poweroutages.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Nerc {
 	private int id;
 	private String value;
+	private List <Nerc> aiutati;
+	private boolean impegnato;
+	private long bonus; //gg di aiuto dati agli altri
 
 	public Nerc(int id, String value) {
 		this.id = id;
 		this.value = value;
+		aiutati = new ArrayList <Nerc>();
+		impegnato=false;
+		bonus=0;
 	}
+	
+	public void addGGServizi(Long gg) {
+		bonus+=gg;
+	}
+	
+	public Long getBonus() {
+		return this.bonus;
+	}
+
+	public boolean isImpegnato() { //sta donando energia
+		return impegnato;
+	}
+
+
+
+	public void setImpegnato(boolean impegnato) {
+		this.impegnato = impegnato;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -52,5 +81,13 @@ public class Nerc {
 		StringBuilder builder = new StringBuilder();
 		builder.append(value);
 		return builder.toString();
+	}
+	
+	public void addVicinoAiutato(Nerc n) {
+		this.aiutati.add(n);
+	}
+	
+	public List <Nerc> getAiutati(){
+		return aiutati;
 	}
 }
